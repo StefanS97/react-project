@@ -1,13 +1,90 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(245, 245, 245);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.centered {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin: auto;
+  padding-top: 20px;
+}
+
+.toggler {
+  border: none;
+  background-color: inherit;
+  margin: 0;
+  padding: 0;
+  color: blue;
+}
+
+.toggler:hover {
+  text-decoration: underline;
+}
+
+.title {
+  font-size: 45px;
+}
+
+.underline {
+  width: 130px;
+  height: 3px;
+  margin-top: -20px;
+  background: black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 25px;
+}
+
+.article {
+  font-size: 20px;
+  max-width: 800px;
+}
+
+.about-details {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+}
+
+.about-details article {
+  max-width: 435px;
+}
+
+.about-image {
+  width: 350px;
+  height: 350px;
+  margin-bottom: 20px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 240px));
+  max-width: 600px;
+  grid-gap: 10px;
+  justify-content: center;
+  margin: auto;
+}
+
+.contact-social {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.help {
+  display: grid;
+  max-width: 800px;
+  padding-top: 50px;
+  margin: auto;
+  justify-content: center;
+}
+
+.postlist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 10px;
+  align-items: flex-start;
+  max-width: 1000px;
 }

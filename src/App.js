@@ -1,24 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import Navbar from "./components/Navigation/Navbar";
+import Sidebar from "./components/Navigation/Sidebar";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+import HelpPage from "./pages/HelpPage";
+import PostCreate from "./pages/Posts/PostCreate";
+import PostIndex from "./pages/Posts/PostIndex";
 
 function App() {
+  const [drawerState, setDrawerState] = useState(false);
+
+  const openDrawer = () => {
+    setDrawerState(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerState(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar openDrawer={openDrawer} />
+      <Sidebar drawerState={drawerState} closeDrawer={closeDrawer} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/posts" />} />
+        <Route path="/posts" element={<PostIndex />} />
+        <Route path="/posts/create" element={<PostCreate />} />
+
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/help" element={<HelpPage />} />
+      </Routes>
+    </>
   );
 }
 
