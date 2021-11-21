@@ -8,7 +8,8 @@ const PostTemplate = (props) => {
   const [toggleMore, setToggleMore] = useState(false);
 
   const { id, title, author, description, onRemovePost } = props;
-  let newDescription = `${description.slice(0, 150)}...`;
+  let newDescription =
+    description.length > 150 ? `${description.slice(0, 150)}...` : description;
 
   const toggleMoreHandler = () => {
     setToggleMore((prevToggle) => !prevToggle);
@@ -28,10 +29,14 @@ const PostTemplate = (props) => {
       <CardContent>
         <h3>{title}</h3>
         <p>
-          {toggleMore ? description : newDescription}
-          <button onClick={toggleMoreHandler} className="toggler">
-            {toggleMore ? "Read Less" : "Read More"}
-          </button>
+          {toggleMore && description.length > 150
+            ? description
+            : newDescription}
+          {description.length > 150 && (
+            <button onClick={toggleMoreHandler} className="toggler">
+              {toggleMore ? "Read Less" : "Read More"}
+            </button>
+          )}
         </p>
         <address>-{author}</address>
       </CardContent>
