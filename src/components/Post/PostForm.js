@@ -2,24 +2,35 @@ import CustomTitle from "../UI/CustomTitle";
 import CustomForm from "../UI/CustomForm";
 import useHttp from "../../hooks/use-http";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import useCheckValid from "../../hooks/use-check-valid";
 
 const inputs = [
   {
     id: "postTitle",
     label: "Post Title",
     type: "text",
+    required: true,
   },
   {
     id: "postDescription",
     label: "Post Description",
     type: "text",
     multiline: true,
+    required: true,
   },
 ];
 
-const PostForm = (props) => {
-  const navigate = useNavigate();
+const url =
+  "https://learningreactjs-e02b9-default-rtdb.europe-west1.firebasedatabase.app/posts.json";
+const method = "POST";
+const headers = { "Content-Type": "application/json" };
 
+const PostForm = () => {
+  const navigate = useNavigate();
+  const [valid, setValid] = useState(true);
+
+  const { checkValid } = useCheckValid();
   const { error, sendRequest } = useHttp();
 
   const publishSuccess = (dataArr) => {
@@ -29,17 +40,23 @@ const PostForm = (props) => {
     }
   };
 
-  const publishHandler = async (title, description) => {
+  const publishHandler = async (elementObj) => {
+    const title = elementObj.postTitle.value;
+    const description = elementObj.postDescription.value;
     const author = "Unknown";
-    const url =
-      "https://learningreactjs-e02b9-default-rtdb.europe-west1.firebasedatabase.app/posts.json";
-    const method = "POST";
-    const headers = { "Content-Type": "application/json" };
+
     const body = {
       title,
       description,
       author,
     };
+
+    const areValid = checkValid([title, description]);
+    if (!areValid) {
+      setValid(false);
+      setTimeout(() => setValid(true), 3000);
+      return;
+    }
 
     sendRequest({ url, method, headers, body }, publishSuccess);
   };
@@ -52,8 +69,13 @@ const PostForm = (props) => {
         <CustomForm
           inputs={inputs}
           buttonText="Publish"
-          onPublish={publishHandler}
+          onSubmit={publishHandler}
         />
+      )}
+      {!valid && (
+        <p className="centered" style={{ color: "red" }}>
+          Invalid inputs!
+        </p>
       )}
     </>
   );

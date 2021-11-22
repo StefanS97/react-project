@@ -6,21 +6,23 @@ import useHttp from "../../hooks/use-http";
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
-  const url =
-    "https://learningreactjs-e02b9-default-rtdb.europe-west1.firebasedatabase.app/posts.json";
-
-  const { loading, error, sendRequest: fetchPosts } = useHttp();
+  const { loading, error, sendRequest } = useHttp();
 
   useEffect(() => {
+    const url =
+      "https://learningreactjs-e02b9-default-rtdb.europe-west1.firebasedatabase.app/posts.json";
     const setFetchedPosts = (dataArr) => {
       setPosts(dataArr);
     };
 
-    fetchPosts({ url }, setFetchedPosts);
-  }, [fetchPosts]);
+    sendRequest({ url }, setFetchedPosts);
+  }, [sendRequest]);
 
   const removePost = (id) => {
-    // do a backend call for removing an item
+    const url = `https://learningreactjs-e02b9-default-rtdb.europe-west1.firebasedatabase.app/posts/${id}.json`;
+    const method = "DELETE";
+    const headers = { "Content-Type": "application/json" };
+    sendRequest({ url, method, headers }, () => {});
     let updatedPosts = posts.filter((post) => post.id !== id);
     setPosts(updatedPosts);
   };
