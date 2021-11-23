@@ -19,11 +19,8 @@ const useHttp = () => {
         throw new Error("Oops... something went wrong!");
       }
       const data = await response.json();
-      let newData = [];
-      for (const i in data) {
-        newData.push({ id: i, ...data[i] });
-      }
-      setData(newData);
+
+      setData(data);
       setLoading(false);
     } catch (error) {
       setError(true);

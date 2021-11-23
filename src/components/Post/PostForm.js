@@ -33,8 +33,8 @@ const PostForm = () => {
   const { checkValid } = useCheckValid();
   const { error, sendRequest } = useHttp();
 
-  const publishSuccess = (dataArr) => {
-    if (dataArr.length > 0) {
+  const publishSuccess = (dataObj) => {
+    if (dataObj) {
       // memory leak here, fix asap!!
       navigate("/posts");
     }

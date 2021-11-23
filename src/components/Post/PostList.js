@@ -11,8 +11,12 @@ const PostList = () => {
   useEffect(() => {
     const url =
       "https://learningreactjs-e02b9-default-rtdb.europe-west1.firebasedatabase.app/posts.json";
-    const setFetchedPosts = (dataArr) => {
-      setPosts(dataArr);
+    const setFetchedPosts = (dataObj) => {
+      const newData = [];
+      for (let i in dataObj) {
+        newData.push({ id: i, ...dataObj[i] });
+      }
+      setPosts(newData);
     };
 
     sendRequest({ url }, setFetchedPosts);

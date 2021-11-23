@@ -5,8 +5,9 @@ import Sidebar from "./components/Navigation/Sidebar";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import HelpPage from "./pages/HelpPage";
-import PostCreate from "./pages/Posts/PostCreate";
-import PostIndex from "./pages/Posts/PostIndex";
+import PostCreatePage from "./pages/Posts/PostCreatePage";
+import PostEditPage from "./pages/Posts/PostEditPage";
+import PostIndexPage from "./pages/Posts/PostIndexPage";
 
 function App() {
   const [drawerState, setDrawerState] = useState(false);
@@ -25,9 +26,9 @@ function App() {
       <Sidebar drawerState={drawerState} closeDrawer={closeDrawer} />
       <Routes>
         <Route path="/" element={<Navigate to="/posts" />} />
-        <Route path="/posts" element={<PostIndex />} />
-        <Route path="/posts/create" element={<PostCreate />} />
-
+        <Route path="/posts" element={<PostIndexPage />} />
+        <Route path="/posts/create" element={<PostCreatePage />} />
+        <Route path="/posts/edit/:postId" element={<PostEditPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/help" element={<HelpPage />} />

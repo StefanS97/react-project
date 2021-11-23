@@ -1,7 +1,7 @@
 import PostList from "../../components/Post/PostList";
 
-const PostIndex = () => {
+const PostIndexPage = () => {
   return <PostList />;
 };
 
-export default PostIndex;
+export default PostIndexPage;
