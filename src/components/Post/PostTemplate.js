@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Card, CardActions, CardContent } from "@mui/material";
 import CustomButton from "../UI/CustomButton";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
 const PostTemplate = (props) => {
+  const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
   const [toggleMore, setToggleMore] = useState(false);
 
@@ -40,14 +42,16 @@ const PostTemplate = (props) => {
         </p>
         <address>-{author}</address>
       </CardContent>
-      <CardActions>
-        <CustomButton size="small" onClick={editHandler}>
-          Edit
-        </CustomButton>
-        <CustomButton size="small" color="error" onClick={deleteHandler}>
-          Delete
-        </CustomButton>
-      </CardActions>
+      {authCtx.isLoggedIn && (
+        <CardActions>
+          <CustomButton size="small" onClick={editHandler}>
+            Edit
+          </CustomButton>
+          <CustomButton size="small" color="error" onClick={deleteHandler}>
+            Delete
+          </CustomButton>
+        </CardActions>
+      )}
     </Card>
   );
 };

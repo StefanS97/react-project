@@ -1,13 +1,18 @@
 import { AppBar, IconButton, List, Toolbar } from "@mui/material";
 import { amber } from "@mui/material/colors";
-import { Menu } from "@mui/icons-material";
+import { Menu, MoreVert } from "@mui/icons-material";
 import { navbarLinks } from "./links";
 import CustomLink from "../UI/CustomLink";
 
-const Navbar = ({ openDrawer }) => {
+const Navbar = ({ openDrawer, handleClick }) => {
   const menuHandler = () => {
     openDrawer();
   };
+
+  const clickHandler = (event) => {
+    handleClick(event);
+  };
+
   return (
     <AppBar position="static" color="secondary">
       <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -18,6 +23,9 @@ const Navbar = ({ openDrawer }) => {
           {navbarLinks.map((link, index) => {
             return <CustomLink key={index} {...link} />;
           })}
+          <IconButton onClick={clickHandler}>
+            <MoreVert sx={{ color: amber[50] }} />
+          </IconButton>
         </List>
       </Toolbar>
     </AppBar>
