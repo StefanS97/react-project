@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import CustomTitle from "../UI/CustomTitle";
 import PostTemplate from "./PostTemplate";
 import useHttp from "../../hooks/use-http";
+import Loading from "../UI/Loading";
+import Error from "../UI/Error";
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
-
   const { loading, error, sendRequest } = useHttp();
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const PostList = () => {
       }
       setPosts(newData);
     };
-
     sendRequest({ url }, setFetchedPosts);
   }, [sendRequest]);
 
@@ -34,8 +34,8 @@ const PostList = () => {
   return (
     <>
       <CustomTitle title="Posts" />
-      {loading && <h1 className="centered">Loading... Please be patient!</h1>}
-      {error && <h1 className="centered">An Error has occured!</h1>}
+      {loading && <Loading />}
+      {error && <Error />}
       {posts.length < 1 && !loading && (
         <h1 className="centered">There are no posts at this moment...</h1>
       )}

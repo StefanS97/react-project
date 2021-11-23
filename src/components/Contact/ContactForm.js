@@ -2,6 +2,8 @@ import { useState } from "react";
 import CustomForm from "../UI/CustomForm";
 import useCheckValid from "../../hooks/use-check-valid";
 import useHttp from "../../hooks/use-http";
+import InvalidInput from "../UI/InvalidInput";
+import Error from "../UI/Error";
 
 const inputs = [
   {
@@ -38,9 +40,8 @@ const headers = { "Content-Type": "application/json" };
 
 const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [valid, setValid] = useState(true);
 
-  const { checkValid } = useCheckValid();
+  const { checkValid, valid } = useCheckValid();
   const { error, sendRequest } = useHttp();
 
   const onEngage = (myObj) => {
@@ -58,8 +59,6 @@ const ContactForm = () => {
 
     const areValid = checkValid([firstName, lastName, email, message]);
     if (!areValid) {
-      setValid(false);
-      setTimeout(() => setValid(true), 3000);
       return;
     }
 
@@ -68,18 +67,14 @@ const ContactForm = () => {
   };
 
   if (error) {
-    return <h1 className="centered">Something went wrong!</h1>;
+    return <Error />;
   }
 
   if (submitted) {
     return <h1 className="centered">Thank you! We'll get to you shortly!</h1>;
   } else {
     if (!valid) {
-      return (
-        <p className="centered" style={{ color: "red" }}>
-          Invalid inputs!
-        </p>
-      );
+      return <InvalidInput />;
     }
 
     return (

@@ -4,6 +4,9 @@ import CustomTitle from "../UI/CustomTitle";
 import CustomForm from "../UI/CustomForm";
 import { useNavigate } from "react-router-dom";
 import useCheckValid from "../../hooks/use-check-valid";
+import InvalidInput from "../UI/InvalidInput";
+import Loading from "../UI/Loading";
+import Error from "../UI/Error";
 
 const PostEdit = (props) => {
   const navigate = useNavigate();
@@ -18,7 +21,6 @@ const PostEdit = (props) => {
     const detailsHandler = (postObj) => {
       setDetails([postObj]);
     };
-
     sendRequest({ url }, detailsHandler);
   }, [sendRequest, url]);
 
@@ -53,12 +55,10 @@ const PostEdit = (props) => {
   const updateHandler = (myObj) => {
     const newTitle = myObj.postTitle.value;
     const newDescription = myObj.postDescription.value;
-
     const areValid = checkValid([newTitle, newDescription]);
     if (!areValid) {
       return;
     }
-
     if (
       newTitle === details[0].title &&
       newDescription === details[0].description
@@ -72,18 +72,17 @@ const PostEdit = (props) => {
         description: newDescription,
         author: details[0].author,
       };
-
       sendRequest({ url, method, headers, body }, publishSuccess);
     }
   };
 
   if (error || !valid) {
-    return <h1 className="centered">Not Found :(</h1>;
+    return <Error />;
   }
 
   return (
     <>
-      {loading && <h1 className="centered">Loading... please be patient!</h1>}
+      {loading && <Loading />}
       <CustomTitle title="Post Details" />
       {valid && (
         <CustomForm
@@ -92,11 +91,7 @@ const PostEdit = (props) => {
           onSubmit={updateHandler}
         />
       )}
-      {!fieldsValid && (
-        <p className="centered" style={{ color: "red" }}>
-          Invalid inputs!
-        </p>
-      )}
+      {!fieldsValid && <InvalidInput />}
     </>
   );
 };

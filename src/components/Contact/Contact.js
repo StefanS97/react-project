@@ -5,7 +5,7 @@ import ContactSocial from "./ContactSocial";
 const Contact = () => {
   return (
     <section>
-      <CustomTitle title="Get in touch:" />
+      <CustomTitle title="Get in touch" />
       <ContactForm />
       <ContactSocial />
     </section>

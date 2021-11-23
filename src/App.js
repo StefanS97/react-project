@@ -5,6 +5,7 @@ import Sidebar from "./components/Navigation/Sidebar";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import HelpPage from "./pages/HelpPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import PostCreatePage from "./pages/Posts/PostCreatePage";
 import PostEditPage from "./pages/Posts/PostEditPage";
 import PostIndexPage from "./pages/Posts/PostIndexPage";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/help" element={<HelpPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

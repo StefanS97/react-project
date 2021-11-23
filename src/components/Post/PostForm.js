@@ -3,6 +3,8 @@ import CustomForm from "../UI/CustomForm";
 import useHttp from "../../hooks/use-http";
 import { useNavigate } from "react-router-dom";
 import useCheckValid from "../../hooks/use-check-valid";
+import InvalidInput from "../UI/InvalidInput";
+import Error from "../UI/Error";
 
 const inputs = [
   {
@@ -60,7 +62,7 @@ const PostForm = () => {
   return (
     <>
       <CustomTitle title="Create Post" />
-      {error && <h1 className="centered">An error has occured, try again!</h1>};
+      {error && <Error />};
       {!error && (
         <CustomForm
           inputs={inputs}
@@ -68,11 +70,7 @@ const PostForm = () => {
           onSubmit={publishHandler}
         />
       )}
-      {!valid && (
-        <p className="centered" style={{ color: "red" }}>
-          Invalid inputs!
-        </p>
-      )}
+      {!valid && <InvalidInput />}
     </>
   );
 };
