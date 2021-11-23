@@ -3,9 +3,11 @@ import useHttp from "../../hooks/use-http";
 import CustomTitle from "../UI/CustomTitle";
 import CustomForm from "../UI/CustomForm";
 import { useNavigate } from "react-router-dom";
+import useCheckValid from "../../hooks/use-check-valid";
 
 const PostEdit = (props) => {
   const navigate = useNavigate();
+  const { checkValid, valid: fieldsValid } = useCheckValid();
   const [details, setDetails] = useState([]);
   const { postId } = props.params;
   const { loading, error, sendRequest } = useHttp();
@@ -51,6 +53,12 @@ const PostEdit = (props) => {
   const updateHandler = (myObj) => {
     const newTitle = myObj.postTitle.value;
     const newDescription = myObj.postDescription.value;
+
+    const areValid = checkValid([newTitle, newDescription]);
+    if (!areValid) {
+      return;
+    }
+
     if (
       newTitle === details[0].title &&
       newDescription === details[0].description
@@ -83,6 +91,11 @@ const PostEdit = (props) => {
           buttonText="Update"
           onSubmit={updateHandler}
         />
+      )}
+      {!fieldsValid && (
+        <p className="centered" style={{ color: "red" }}>
+          Invalid inputs!
+        </p>
       )}
     </>
   );

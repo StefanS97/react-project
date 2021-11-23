@@ -2,7 +2,6 @@ import CustomTitle from "../UI/CustomTitle";
 import CustomForm from "../UI/CustomForm";
 import useHttp from "../../hooks/use-http";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import useCheckValid from "../../hooks/use-check-valid";
 
 const inputs = [
@@ -28,9 +27,8 @@ const headers = { "Content-Type": "application/json" };
 
 const PostForm = () => {
   const navigate = useNavigate();
-  const [valid, setValid] = useState(true);
 
-  const { checkValid } = useCheckValid();
+  const { checkValid, valid } = useCheckValid();
   const { error, sendRequest } = useHttp();
 
   const publishSuccess = (dataObj) => {
@@ -53,8 +51,6 @@ const PostForm = () => {
 
     const areValid = checkValid([title, description]);
     if (!areValid) {
-      setValid(false);
-      setTimeout(() => setValid(true), 3000);
       return;
     }
 
